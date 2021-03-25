@@ -12,17 +12,18 @@ package com.fei.kotlindemo.domain.model
  * @Version: 1.0
  */
 data class ForecastList(
+    val _id: Long,//zipcode
     val city: String, val country: String,
     val dailyForecast: List<Forecast>
-){
+) {
 
-    operator fun get(position:Int) = dailyForecast[position]
+    operator fun get(position: Int) = dailyForecast[position]
 
     fun size() = dailyForecast.size
 }
 
 
 data class Forecast(
-    val date: String, val description: String, val high: Int,
-    val low: Int,val iconUrl:String
+    val date: Long, val description: String, val high: Int,
+    val low: Int, val iconUrl: String
 )
