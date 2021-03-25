@@ -15,7 +15,11 @@ import java.net.URL
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-class ForecastRequest(private val zipCode: String) {
+
+/**
+ * 从网络获取
+ */
+class ForecastRequest(private val zipCode: Long) {
 
     companion object {
         private const val APP_ID = "15646a06818f61f7b8d7823ca833e1ce"

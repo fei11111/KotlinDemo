@@ -15,9 +15,9 @@ import com.fei.kotlindemo.domain.request.ForecastRequest
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-class RequestCommand(private val zipCode: String) : Command<ForecastList> {
+class RequestCommand(private val zipCode: Long) : Command<ForecastList> {
     override fun execute(): ForecastList {
         val forecastRequest = ForecastRequest(zipCode)
-        return ForecastDataMapper().convertForecastToList(forecastRequest.execute())
+        return ForecastDataMapper(zipCode).convertForecastToList(forecastRequest.execute())
     }
 }

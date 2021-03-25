@@ -18,10 +18,11 @@ import com.fei.kotlindemo.domain.model.Forecast as ModeForecast
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-class ForecastDataMapper {
+class ForecastDataMapper(private val zipCode: Long) {
 
     fun convertForecastToList(forecastResult: ForecastResult): ForecastList {
         return ForecastList(
+            zipCode,
             forecastResult.city.name,
             forecastResult.city.country,
             convertForecastList(forecastResult.list)
@@ -42,9 +43,9 @@ class ForecastDataMapper {
         return "http://openweathermap.org/img/w/$icon.png"
     }
 
-    private fun convertDate(dt: Long): String {
+    private fun convertDate(dt: Long): Long {
         val df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
-        return df.format(dt * 1000)
+        return df.format(dt * 1000).toLong()
     }
 
 }
