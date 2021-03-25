@@ -1,14 +1,14 @@
-package com.fei.kotlindemo
+package com.fei.kotlindemo.ui.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.fei.kotlindemo.R
 import com.fei.kotlindemo.domain.command.RequestCommand
-import org.jetbrains.anko.async
-import org.jetbrains.anko.find
+import com.fei.kotlindemo.ui.adapter.ForecastListAdapter
+import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
-import org.jetbrains.anko.uiThread
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,12 +22,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val forecastList = find<RecyclerView>(R.id.forecast_list)
         forecastList.layoutManager = LinearLayoutManager(this)
 
-        async {
+        doAsync {
             val result = RequestCommand("94043").execute()
-            uiThread {
+            runOnUiThread {
                 forecastList.adapter =
                     ForecastListAdapter(result) {
                         toast(it.date)

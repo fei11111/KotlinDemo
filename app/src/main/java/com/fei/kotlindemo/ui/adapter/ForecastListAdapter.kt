@@ -1,16 +1,15 @@
-package com.fei.kotlindemo
+package com.fei.kotlindemo.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.fei.kotlindemo.R
 import com.fei.kotlindemo.domain.model.Forecast
 import com.fei.kotlindemo.domain.model.ForecastList
 import com.fei.kotlindemo.extension.ctx
 import com.squareup.picasso.Picasso
-import org.jetbrains.anko.find
+import kotlinx.android.synthetic.main.item_forecast.view.*
 
 /**
  *
@@ -33,17 +32,12 @@ class ForecastListAdapter(
     class ForecastListHolder(private val view: View, private val onItemClick: (Forecast) -> Unit) :
         RecyclerView.ViewHolder(view) {
 
-        private val ivIcon: ImageView = itemView.find(R.id.icon)
-        private val tvDescription: TextView = itemView.find(R.id.description)
-        private val tvDate: TextView = itemView.find(R.id.date)
-        private val tvMaxAndMin: TextView = itemView.find(R.id.maxAndMin)
-
         fun bind(forecast: Forecast) {
             with(forecast) {
-                Picasso.Builder(view.ctx).build().load(iconUrl).into(ivIcon)
-                tvDate.text = date
-                tvDescription.text = description
-                tvMaxAndMin.text = "$low°~$high°"
+                Picasso.Builder(view.ctx).build().load(iconUrl).into(itemView.icon)
+                itemView.date.text = date
+                itemView.description.text = description
+                itemView.maxAndMin.text = "$low°~$high°"
                 itemView.setOnClickListener {
                     onItemClick(this)
                 }
@@ -53,7 +47,11 @@ class ForecastListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ForecastListHolder {
         return ForecastListHolder(
-            LayoutInflater.from(parent.ctx).inflate(R.layout.item_forecast, parent, false),
+            LayoutInflater.from(parent.ctx).inflate(
+                R.layout.item_forecast,
+                parent,
+                false
+            ),
             onItemClick
         )
     }

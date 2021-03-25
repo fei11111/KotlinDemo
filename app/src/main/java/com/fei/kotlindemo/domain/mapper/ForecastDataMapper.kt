@@ -1,8 +1,8 @@
 package com.fei.kotlindemo.domain.mapper
 
 import com.fei.kotlindemo.domain.model.ForecastList
-import com.fei.kotlindemo.domain.response.Forecast
-import com.fei.kotlindemo.domain.response.ForecastResult
+import com.fei.kotlindemo.domain.result.Forecast
+import com.fei.kotlindemo.domain.result.ForecastResult
 import java.text.DateFormat
 import java.util.*
 import com.fei.kotlindemo.domain.model.Forecast as ModeForecast

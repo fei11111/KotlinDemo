@@ -1,6 +1,6 @@
 package com.fei.kotlindemo.domain.request
 
-import com.fei.kotlindemo.domain.response.ForecastResult
+import com.fei.kotlindemo.domain.result.ForecastResult
 import com.google.gson.Gson
 import java.net.URL
 

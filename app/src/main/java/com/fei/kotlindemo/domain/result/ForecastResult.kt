@@ -1,4 +1,4 @@
-package com.fei.kotlindemo.domain.response
+package com.fei.kotlindemo.domain.result
 
 /**
  *
