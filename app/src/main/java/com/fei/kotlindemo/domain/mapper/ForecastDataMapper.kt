@@ -44,8 +44,9 @@ class ForecastDataMapper(private val zipCode: Long) {
     }
 
     private fun convertDate(dt: Long): Long {
-        val df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
-        return df.format(dt * 1000).toLong()
+//        val df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
+//        return df.format(dt * 1000)
+        return dt
     }
 
 }

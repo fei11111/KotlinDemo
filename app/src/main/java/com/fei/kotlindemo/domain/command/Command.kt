@@ -13,6 +13,6 @@ package com.fei.kotlindemo.domain.command
  */
 open interface Command<T> {
 
-    fun execute():T
+    fun execute():T?
 
 }

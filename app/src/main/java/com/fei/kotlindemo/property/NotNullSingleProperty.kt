@@ -23,7 +23,7 @@ class NotNullSingleProperty<R, T> : ReadWriteProperty<R, T> {
     }
 
     override fun setValue(thisRef: R, property: KProperty<*>, value: T) {
-        if (value == null) this.value = value else throw IllegalStateException(
+        this.value = if (this.value == null) value else throw IllegalStateException(
             "${property.name} already initialized"
         )
     }

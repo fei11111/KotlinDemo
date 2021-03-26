@@ -1,6 +1,7 @@
 package com.fei.kotlindemo.db
 
 import android.content.ContentValues
+import com.fei.kotlindemo.`interface`.ForecastDataSource
 import com.fei.kotlindemo.db.helper.ForecastDbHelper
 import com.fei.kotlindemo.db.mapper.DbDataMapper
 import com.fei.kotlindemo.db.model.CityForecast
@@ -26,27 +27,28 @@ import org.jetbrains.anko.db.select
  */
 class ForecastDb(
     private val forecastDbHelper: ForecastDbHelper = ForecastDbHelper.instance,
-    private val dbDataMapper: DbDataMapper
-) {
+    private val dbDataMapper: DbDataMapper = DbDataMapper()
+) : ForecastDataSource {
 
     /**
      * 从数据库查数据
      */
-    fun requestForecastByZipCode(zipCode: String, date: Long) = forecastDbHelper.use {
-        val dailyForecast = select(DayForecastTable.NAME).whereSimple(
-            "${DayForecastTable.CITY_ID} = ? AND ${DayForecastTable.DATE} >= ?",
-            zipCode,
-            date.toString()
-        ).parseList {
-            DayForecast(HashMap(it))
+    override fun requestForecastByZipCode(zipCode: Long, date: Long): ForecastList? =
+        forecastDbHelper.use {
+            val dailyForecast = select(DayForecastTable.NAME).whereSimple(
+                "${DayForecastTable.CITY_ID} = ? AND ${DayForecastTable.DATE} >= ?",
+                zipCode.toString(),
+                date.toString()
+            ).parseList {
+                DayForecast(HashMap(it))
+            }
+
+            val city = select(CityForecastTable.NAME).whereSimple(
+                "${CityForecastTable.ID} = ?", zipCode.toString()
+            ).parseOpt { CityForecast(HashMap(it), dailyForecast) }
+
+            if (city != null) dbDataMapper.convertToDomain(city) else null
         }
-
-        val city = select(CityForecastTable.NAME).whereSimple(
-            "${CityForecastTable.ID} = ?", zipCode
-        ).parseOpt { CityForecast(HashMap(it), dailyForecast) }
-
-        if (city != null) dbDataMapper.convertToDomain(city) else null
-    }
 
     /**
      * 插入数据库
@@ -59,7 +61,7 @@ class ForecastDb(
             with(cityForecast) {
                 val contentValues = ContentValues()
 
-                contentValues.put(CityForecastTable.ID, _id)
+                contentValues.put(CityForecastTable.CITY_ID, _id)
                 contentValues.put(CityForecastTable.CITY, city)
                 contentValues.put(CityForecastTable.COUNTRY, country)
                 insert(CityForecastTable.NAME, null, contentValues)

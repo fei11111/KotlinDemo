@@ -1,8 +1,7 @@
 package com.fei.kotlindemo.domain.command
 
-import com.fei.kotlindemo.domain.mapper.ForecastDataMapper
 import com.fei.kotlindemo.domain.model.ForecastList
-import com.fei.kotlindemo.domain.request.ForecastRequest
+import com.fei.kotlindemo.provider.ForecastProvider
 
 /**
  *
@@ -15,9 +14,17 @@ import com.fei.kotlindemo.domain.request.ForecastRequest
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-class RequestCommand(private val zipCode: Long) : Command<ForecastList> {
-    override fun execute(): ForecastList {
-        val forecastRequest = ForecastRequest(zipCode)
-        return ForecastDataMapper(zipCode).convertForecastToList(forecastRequest.execute())
+class RequestCommand(
+    private val zipCode: Long,
+    private val provider: ForecastProvider = ForecastProvider()
+) :
+    Command<ForecastList> {
+
+    companion object {
+        const val DAYS = 7
+    }
+
+    override fun execute(): ForecastList? {
+        return provider.requestByZipCode(zipCode, DAYS)
     }
 }

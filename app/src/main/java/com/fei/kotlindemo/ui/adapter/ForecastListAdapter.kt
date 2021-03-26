@@ -35,7 +35,7 @@ class ForecastListAdapter(
         fun bind(forecast: Forecast) {
             with(forecast) {
                 Picasso.Builder(view.ctx).build().load(iconUrl).into(itemView.icon)
-                itemView.date.text = date
+                itemView.date.text = date.toString()
                 itemView.description.text = description
                 itemView.maxAndMin.text = "$low°~$high°"
                 itemView.setOnClickListener {

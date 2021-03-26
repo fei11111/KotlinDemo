@@ -34,29 +34,25 @@ class ForecastDbHelper(ctx: Context = App.instance) :
          * to 代替 Pair(A,B)
          *
          */
-
-        db.run {
-            createTable(
-                CityForecastTable.NAME, true,
-                /**
-                 * SqlType + SqlTypeModifier 用了扩展操作符
-                 */
-                CityForecastTable.ID to INTEGER + PRIMARY_KEY,
-                CityForecastTable.CITY to TEXT,
-                CityForecastTable.COUNTRY to TEXT
-            )
-            createTable(
-                DayForecastTable.NAME, true,
-                DayForecastTable.ID to INTEGER + PRIMARY_KEY + AUTOINCREMENT,
-                DayForecastTable.ID to INTEGER,
-                DayForecastTable.DATE to INTEGER,
-                DayForecastTable.DESCRIPTION to TEXT,
-                DayForecastTable.HIGH to INTEGER,
-                DayForecastTable.LOW to INTEGER,
-                DayForecastTable.ICON_URL to TEXT,
-                DayForecastTable.CITY_ID to INTEGER
-            )
-        }
+        /**
+         * SqlType + SqlTypeModifier 用了扩展操作符
+         */
+        db.createTable(
+            CityForecastTable.NAME, true,
+            CityForecastTable.ID to INTEGER + PRIMARY_KEY,
+            CityForecastTable.CITY to TEXT,
+            CityForecastTable.COUNTRY to TEXT
+        )
+        db.createTable(
+            DayForecastTable.NAME, true,
+            DayForecastTable.ID to INTEGER + PRIMARY_KEY + AUTOINCREMENT,
+            DayForecastTable.DATE to INTEGER,
+            DayForecastTable.DESCRIPTION to TEXT,
+            DayForecastTable.HIGH to INTEGER,
+            DayForecastTable.LOW to INTEGER,
+            DayForecastTable.ICON_URL to TEXT,
+            DayForecastTable.CITY_ID to INTEGER
+        )
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {

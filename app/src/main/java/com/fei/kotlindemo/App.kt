@@ -1,7 +1,10 @@
 package com.fei.kotlindemo
 
 import android.app.Application
+import android.content.Context
+import android.util.Log
 import com.fei.kotlindemo.delegate.DelegateExt
+import kotlin.properties.Delegates
 
 /**
  *
@@ -18,12 +21,20 @@ class App : Application() {
 
     companion object {
         //保证只有唯一一次赋值，且获取数据时没有数据会报错
-        var instance: Application by DelegateExt.notNullSingleValue()
+        const val TAG = "App"
+        var instance: Application by DelegateExt.notNullSingleValue<Application>()
     }
+
 
     override fun onCreate() {
         super.onCreate()
         instance = this
+        Log.i(TAG,"onCreate()")
+    }
+
+    override fun onTerminate() {
+        super.onTerminate()
+        Log.i(TAG,"onTerminate()")
     }
 
 }
