@@ -8,6 +8,7 @@ import com.fei.kotlindemo.db.model.CityForecast
 import com.fei.kotlindemo.db.model.DayForecast
 import com.fei.kotlindemo.db.table.CityForecastTable
 import com.fei.kotlindemo.db.table.DayForecastTable
+import com.fei.kotlindemo.domain.model.Forecast
 import com.fei.kotlindemo.domain.model.ForecastList
 import com.fei.kotlindemo.extension.parseList
 import com.fei.kotlindemo.extension.parseOpt
@@ -49,6 +50,11 @@ class ForecastDb(
 
             if (city != null) dbDataMapper.convertToDomain(city) else null
         }
+
+    override fun requestDayForecast(id: Long): Forecast? {
+        TODO("Not yet implemented")
+    }
+
 
     /**
      * 插入数据库

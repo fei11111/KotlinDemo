@@ -1,5 +1,7 @@
 package com.fei.kotlindemo.`interface`
 
+import com.fei.kotlindemo.db.model.DayForecast
+import com.fei.kotlindemo.domain.model.Forecast
 import com.fei.kotlindemo.domain.model.ForecastList
 
 /**
@@ -20,4 +22,5 @@ interface ForecastDataSource {
 
     fun requestForecastByZipCode(zipCode: Long, date: Long):ForecastList?
 
+    fun requestDayForecast(id:Long):Forecast?
 }

@@ -4,6 +4,7 @@ import android.util.Log
 import com.fei.kotlindemo.`interface`.ForecastDataSource
 import com.fei.kotlindemo.db.ForecastDb
 import com.fei.kotlindemo.domain.mapper.ForecastDataMapper
+import com.fei.kotlindemo.domain.model.Forecast
 import com.fei.kotlindemo.domain.model.ForecastList
 
 /**
@@ -29,5 +30,9 @@ class ForecastServer(private val forecastDb: ForecastDb = ForecastDb()) : Foreca
         Log.i("Tag",forecastList.toString())
         forecastDb.insertToDb(forecastList)
         return forecastList
+    }
+
+    override fun requestDayForecast(id: Long): Forecast? {
+        TODO("Not yet implemented")
     }
 }

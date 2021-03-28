@@ -32,6 +32,11 @@ class App : Application() {
         Log.i(TAG,"onCreate()")
     }
 
+    override fun onLowMemory() {
+        super.onLowMemory()
+        Log.i(TAG,"onLowMemory()")
+    }
+
     override fun onTerminate() {
         super.onTerminate()
         Log.i(TAG,"onTerminate()")

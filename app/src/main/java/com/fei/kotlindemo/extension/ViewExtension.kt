@@ -2,6 +2,7 @@ package com.fei.kotlindemo.extension
 
 import android.content.Context
 import android.view.View
+import androidx.core.content.ContextCompat
 
 /**
  *
@@ -16,3 +17,5 @@ import android.view.View
  */
 val View.ctx: Context
     get() = context
+
+inline fun Context.color(res: Int): Int = ContextCompat.getColor(this, res)

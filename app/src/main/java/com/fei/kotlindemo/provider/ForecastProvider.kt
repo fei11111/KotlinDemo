@@ -2,6 +2,7 @@ package com.fei.kotlindemo.provider
 
 import com.fei.kotlindemo.`interface`.ForecastDataSource
 import com.fei.kotlindemo.db.ForecastDb
+import com.fei.kotlindemo.domain.model.Forecast
 import com.fei.kotlindemo.domain.model.ForecastList
 import com.fei.kotlindemo.domain.request.ForecastServer
 import com.fei.kotlindemo.extension.firstResult
@@ -38,5 +39,16 @@ class ForecastProvider(private val source: List<ForecastDataSource> = ForecastPr
 
 
     private fun todayTimeSpan() = System.currentTimeMillis() / DAY_IN_MILLIS * DAY_IN_MILLIS
+
+    fun requestForecast(id: Long) =
+        source.firstResult {
+            requestDayForecast(it, id)
+        }
+
+
+    private fun requestDayForecast(it: ForecastDataSource, id: Long): Forecast? {
+        val res = it.requestDayForecast(id)
+        return res ?: null
+    }
 
 }
