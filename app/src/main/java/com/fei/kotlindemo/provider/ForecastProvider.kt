@@ -21,10 +21,12 @@ import com.fei.kotlindemo.extension.firstResult
 class ForecastProvider(private val source: List<ForecastDataSource> = ForecastProvider.SOURCE) {
 
     companion object {
-        val DAY_IN_MILLIS = 1000 * 60 * 60 * 24
-        val SOURCE = listOf<ForecastDataSource>(
-            ForecastDb(), ForecastServer()
-        )
+        const val DAY_IN_MILLIS = 1000 * 60 * 60 * 24
+        val SOURCE by lazy {
+            listOf<ForecastDataSource>(
+                ForecastDb(), ForecastServer()
+            )
+        }
     }
 
     fun requestByZipCode(zipCode: Long, days: Int): ForecastList? =

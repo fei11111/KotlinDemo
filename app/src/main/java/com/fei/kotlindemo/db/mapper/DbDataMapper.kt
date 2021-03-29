@@ -26,7 +26,13 @@ class DbDataMapper {
     private fun convertToForecast(dailyForecast: List<DayForecast>): List<Forecast> =
         dailyForecast.map {
             with(it) {
-                Forecast(date, description, high, low, iconUrl)
+                Forecast(
+                    date = date,
+                    description = description,
+                    high = high,
+                    low = low,
+                    iconUrl = iconUrl
+                )
             }
         }
 

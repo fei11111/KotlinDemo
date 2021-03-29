@@ -1,6 +1,7 @@
 package com.fei.kotlindemo.ui.activity
 
 import android.os.Bundle
+import androidx.annotation.IntDef
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,10 +26,25 @@ class MainActivity() : AppCompatActivity(), ToolBarManager {
         "Thurs 6/23 - Sunny"
     )
 
+    @IntDef(value = [GREEN,RED])
+    @Retention(AnnotationRetention.SOURCE)
+    annotation class LightColors{
+
+    }
+
+    companion object{
+        final const val RED = 1
+        final const val GREEN = 2
+    }
+
+    private fun testColor(@LightColors value:Int) {
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        testColor(13)
         initToolbar()
         forecastList.layoutManager = LinearLayoutManager(this)
         attachToScroll(forecastList)
