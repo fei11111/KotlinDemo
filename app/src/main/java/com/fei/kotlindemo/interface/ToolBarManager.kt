@@ -3,9 +3,14 @@ package com.fei.kotlindemo.`interface`
 import android.graphics.drawable.Drawable
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.RecyclerView
 import com.fei.kotlindemo.App
 import com.fei.kotlindemo.R
 import com.fei.kotlindemo.extension.ctx
+import com.fei.kotlindemo.extension.slideEnter
+import com.fei.kotlindemo.extension.slideExit
+import com.fei.kotlindemo.ui.activity.SettingActivity
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 /**
@@ -31,7 +36,7 @@ interface ToolBarManager {
         toolBar.inflateMenu(R.menu.menu_main)
         toolBar.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.action_setting -> App.instance.toast("setting")
+                R.id.action_setting -> toolBar.ctx.startActivity<SettingActivity>()
                 else -> App.instance.toast("unknow option")
             }
             true
@@ -45,8 +50,18 @@ interface ToolBarManager {
         }
     }
 
-    fun createUpDrawable(): Drawable  = with(DrawerArrowDrawable(toolBar.ctx)) {
+    fun createUpDrawable(): Drawable = with(DrawerArrowDrawable(toolBar.ctx)) {
         progress = 1f
         this
+    }
+
+    fun attachToScroll(recyclerView: RecyclerView) {
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dy > 0)
+                    recyclerView.slideExit() else recyclerView.slideEnter()
+
+            }
+        })
     }
 }

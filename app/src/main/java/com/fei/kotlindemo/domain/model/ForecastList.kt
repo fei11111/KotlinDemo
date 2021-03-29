@@ -24,7 +24,7 @@ data class ForecastList(
 
 
 data class Forecast(
-    val id: Long,
+    var id: Long = 0L,
     val date: Long, val description: String, val high: Int,
     val low: Int, val iconUrl: String
 )

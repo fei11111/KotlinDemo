@@ -2,7 +2,6 @@ package com.fei.kotlindemo.extension
 
 import android.content.Context
 import android.view.View
-import androidx.core.content.ContextCompat
 
 /**
  *
@@ -18,4 +17,14 @@ import androidx.core.content.ContextCompat
 val View.ctx: Context
     get() = context
 
-inline fun Context.color(res: Int): Int = ContextCompat.getColor(this, res)
+inline fun View.slideExit() {
+    if (translationY == 0f) {
+        animate().translationY(-height.toFloat())
+    }
+}
+
+inline fun View.slideEnter() {
+    if (translationY < 0) {
+        animate().translationY(0f)
+    }
+}

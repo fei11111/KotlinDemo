@@ -14,7 +14,8 @@
         android:clipToPadding="false"
         android:paddingTop="?attr/actionBarSize"/>
 
-    <include layout="@layout/toolbar"/>
+    <include
+        layout="@layout/toolbar"/>
 
 
 </FrameLayout>

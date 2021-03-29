@@ -1,6 +1,8 @@
 package com.fei.kotlindemo.delegate
 
+import android.content.Context
 import com.fei.kotlindemo.property.NotNullSingleProperty
+import com.fei.kotlindemo.util.SharePreference
 import kotlin.properties.ReadWriteProperty
 
 /**
@@ -18,5 +20,9 @@ import kotlin.properties.ReadWriteProperty
 object DelegateExt {
 
     fun <T> notNullSingleValue(): ReadWriteProperty<Any?, T> = NotNullSingleProperty()
+
+    fun <T> sharePreference(context: Context, name: String, defaultValue: T) =
+        SharePreference(context, name, defaultValue)
+
 
 }
